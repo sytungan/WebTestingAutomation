@@ -1,2 +1,1 @@
 import selenium
-import os
