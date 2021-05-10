@@ -68,18 +68,18 @@ class TinhTeAutomationTesting(unittest.TestCase):
     
     def setUp(self):
         if system() == 'Windows':
-            PATH = "./chrome_driver/chromedriver_win32/chromedriver.exe"
+            self.PATH = "./chrome_driver/chromedriver_win32/chromedriver.exe"
         elif system() == 'Linux':
-            PATH = "./chrome_driver/chromedriver_linux64/chromedriver"
+            self.PATH = "./chrome_driver/chromedriver_linux64/chromedriver"
         elif system() == 'Darwin':
-            PATH = "./chrome_driver/chromedriver_mac64/chromedriver"
-        self.driver = webdriver.Chrome(PATH)
+            self.PATH = "./chrome_driver/chromedriver_mac64/chromedriver"
+        self.driver = webdriver.Chrome(self.PATH)
         self.driver.get("https://tinhte.vn")
 
         print("==========================START-TEST==========================")
     
     def login_(self):
-        self.driver = SeleniumDriver(driver_path=PATH)
+        self.driver = SeleniumDriver(driver_path=self.PATH).driver
         if tinhte_login(self.driver):
             print("Already logged in")
         else:
