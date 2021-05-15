@@ -56,14 +56,13 @@ class SeleniumDriver(object):
         self.close_all()
 
 def tinhte_login(driver):
-    driver.get("https://tinhte.vn")
-    if len(driver.find_elements_by_class_name("jsx-1783754700.blue-switch.header-mode")) == 1:
-        return True
+    # driver.get("https://tinhte.vn")
+    # if len(driver.find_elements_by_class_name("jsx-1783754700.blue-switch.header-mode")) == 1:
+    #     return True
     driver.find_element_by_partial_link_text("Đăng nhập").click()
     driver.find_elements_by_name("login")[2].send_keys("Ultranonexist")
     driver.find_elements_by_name("password")[2].send_keys("うずまきナルト")
     driver.find_elements_by_class_name("button.primary")[3].click()
-    return False
 
 class TinhTeAutomationTesting(unittest.TestCase):
     """A sample test class to show how page object works"""
@@ -81,14 +80,15 @@ class TinhTeAutomationTesting(unittest.TestCase):
         print("==========================START-TEST==========================")
     
     def login_(self):
-        self.driver.close()
-        seleniumObj = SeleniumDriver(driver_path=self.PATH)
-        self.driver = seleniumObj.driver
-        if tinhte_login(self.driver):
-            print("Already logged in")
-        else:
-            print("Not logged in. Login")
-            seleniumObj.save_cookies()
+        # self.driver.close()
+        # seleniumObj = SeleniumDriver(driver_path=self.PATH)
+        # self.driver = seleniumObj.driver
+        # if tinhte_login(self.driver):
+        #     print("Already logged in")
+        # else:
+        #     print("Not logged in. Login")
+        #     seleniumObj.save_cookies()
+        tinhte_login(self.driver)
             
 
     def search_(self, str):
@@ -130,32 +130,55 @@ class TinhTeAutomationTesting(unittest.TestCase):
     # def test_search_Shieroglyphics(self):
     #     """Search a link."""
     #     self.search_("ベトナム人")
-
-    def test_CMFullComplete(self):
-        """Create a message with at least one participants and message not empty"""
-        self.login_()
+    def makeMessage(self, participants, title, paragraph):
         self.driver.find_element_by_class_name("jsx-2971791619.main").click()
         self.driver.find_element_by_class_name("jsx-756775732.view-all-btn").click()
         self.driver.find_element_by_class_name("callToAction").click()
         participantBox = self.driver.find_element_by_id("ctrl_recipients")
-        participantBox.send_keys("hi")
-        time.sleep(1)
-        participantBox.send_keys(Keys.RETURN)
+
+        for participant in participants:
+            participantBox.send_keys(participant)
+            time.sleep(1)
+            participantBox.send_keys(Keys.RETURN)
+
         titleBox = self.driver.find_element_by_id("ctrl_title")
-        titleBox.send_keys("hello")
-        divMsg = self.driver.find_elements_by_class_name("redactor_box")
-        msg = self.driver.find_element_by_tag_name("iframe")
-        # msg[0].send_keys("hihi")
-        # webdriver.ActionChains(msg[0]).send_keys('this is a test').perform()
-        # webdriver.ActionChains(msg[1]).send_keys('this is a test').perform()
+        titleBox.send_keys(title)
+
+        iframe = self.driver.find_element_by_tag_name("iframe")
+        self.driver.switch_to.frame(iframe)
+        pTag = self.driver.find_element_by_tag_name("p")
+        self.driver.execute_script("arguments[0].textContent = arguments[1];", pTag, paragraph)
+
+        self.driver.switch_to.default_content()
+
+        writeBtn = self.driver.find_elements_by_class_name("button.primary")[1]
+        writeBtn.click()
         time.sleep(10)
-        print(msg.find_elements_by_tag_name("p"))
 
-        # divMsg.find_element_by_tag_name("body").send_keys("ghehgehe")
-        time.sleep(10)
-
-
+    def test_CMFullComplete(self):
+        """Create a message with at least one participants and message not empty"""
+        self.login_()
+        self.makeMessage(["hi", "hehe"], "hello", "Tui la An ne")
     
+    def test_CMWithoutPar(self):
+        """Create a message without participants"""
+        self.login_()
+        self.makeMessage([],"Hello", "Lai la tui day")
+
+    def test_CMWithoutMess(self):
+        """Create a message without text field"""
+        self.login_()
+        self.makeMessage(["ankun"],"Hello", "")
+
+    def test_CMWithUnvalidPar(self):
+        """Create a message with a not valid recipient."""
+        self.login_()
+        self.makeMessage(["conchomuathumuadongmuaha"],"Hello", "Lai la tui day")
+
+    def test_CMWithUnValidTitle(self):
+        """Create a message with a not valid recipient."""
+        self.login_()
+        self.makeMessage(["ankun"],"", "Lai la tui day")
 
     def tearDown(self):
         self.driver.close()
