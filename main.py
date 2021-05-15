@@ -1,4 +1,5 @@
 import time
+import os
 import unittest
 from selenium import webdriver
 from platform import system
@@ -98,6 +99,7 @@ class TinhTeAutomationTesting(unittest.TestCase):
         searchTextBox = self.driver.find_element_by_class_name("search-textbox")
         searchTextBox.send_keys(str)
         searchTextBox.send_keys(Keys.RETURN)
+        # time.sleep(10)
 
     # def test_search_S0C(self):
     #     """Search without a character."""
@@ -153,32 +155,47 @@ class TinhTeAutomationTesting(unittest.TestCase):
 
         writeBtn = self.driver.find_elements_by_class_name("button.primary")[1]
         writeBtn.click()
-        time.sleep(10)
+        # time.sleep(10)
 
-    def test_CMFullComplete(self):
-        """Create a message with at least one participants and message not empty"""
-        self.login_()
-        self.makeMessage(["hi", "hehe"], "hello", "Tui la An ne")
+    # def test_CMFullComplete(self):
+    #     """Create a message with at least one participants and message not empty"""
+    #     self.login_()
+    #     self.makeMessage(["hi", "hehe"], "hello", "Tui la An ne")
     
-    def test_CMWithoutPar(self):
-        """Create a message without participants"""
-        self.login_()
-        self.makeMessage([],"Hello", "Lai la tui day")
+    # def test_CMWithoutPar(self):
+    #     """Create a message without participants"""
+    #     self.login_()
+    #     self.makeMessage([],"Hello", "Lai la tui day")
 
-    def test_CMWithoutMess(self):
-        """Create a message without text field"""
-        self.login_()
-        self.makeMessage(["ankun"],"Hello", "")
+    # def test_CMWithoutMess(self):
+    #     """Create a message without text field"""
+    #     self.login_()
+    #     self.makeMessage(["ankun"],"Hello", "")
 
-    def test_CMWithUnvalidPar(self):
-        """Create a message with a not valid recipient."""
-        self.login_()
-        self.makeMessage(["conchomuathumuadongmuaha"],"Hello", "Lai la tui day")
+    # def test_CMWithUnvalidPar(self):
+    #     """Create a message with a not valid recipient."""
+    #     self.login_()
+    #     self.makeMessage(["conchomuathumuadongmuaha"],"Hello", "Lai la tui day")
 
-    def test_CMWithUnValidTitle(self):
-        """Create a message with a not valid recipient."""
-        self.login_()
-        self.makeMessage(["ankun"],"", "Lai la tui day")
+    # def test_CMWithUnValidTitle(self):
+    #     """Create a message with a not valid recipient."""
+    #     self.login_()
+    #     self.makeMessage(["ankun"],"", "Lai la tui day")
+    
+    def test_RV_1(self):
+        self.driver.find_element_by_class_name("jsx-817685855.cta").click()
+        txtBox = self.driver.find_elements_by_class_name("review-editor-text-input")
+        txtBox[0].send_keys("iPhone 12 Pro Max")
+        txtBox[1].send_keys("19 triệu VND")
+        txtBox[2].send_keys("To, 1 pin, màn hình rộng, RAM 8GB")
+        txtBox[3].send_keys("Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp")
+        txtBox[4].send_keys("Màn hình hơi nhỏ")
+        txtBox[5].send_keys("Nên mua")
+        imgSend = self.driver.find_element_by_class_name("jsx-2282145060.attachment.cover")
+        imgSend.send_keys(os.getcwd()+"\image.png")
+        print(os.getcwd()+"\image.png")
+
+        time.sleep(20)
 
     def tearDown(self):
         self.driver.close()
