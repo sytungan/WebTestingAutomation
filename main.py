@@ -1,3 +1,4 @@
+import time
 import unittest
 from selenium import webdriver
 from platform import system
@@ -55,6 +56,7 @@ class SeleniumDriver(object):
         self.close_all()
 
 def tinhte_login(driver):
+    driver.get("https://tinhte.vn")
     if len(driver.find_elements_by_class_name("jsx-1783754700.blue-switch.header-mode")) == 1:
         return True
     driver.find_element_by_partial_link_text("Đăng nhập").click()
@@ -79,11 +81,15 @@ class TinhTeAutomationTesting(unittest.TestCase):
         print("==========================START-TEST==========================")
     
     def login_(self):
-        self.driver = SeleniumDriver(driver_path=self.PATH).driver
+        self.driver.close()
+        seleniumObj = SeleniumDriver(driver_path=self.PATH)
+        self.driver = seleniumObj.driver
         if tinhte_login(self.driver):
             print("Already logged in")
         else:
             print("Not logged in. Login")
+            seleniumObj.save_cookies()
+            
 
     def search_(self, str):
         searchButton = self.driver.find_element_by_class_name("placeholder")
@@ -93,37 +99,63 @@ class TinhTeAutomationTesting(unittest.TestCase):
         searchTextBox.send_keys(str)
         searchTextBox.send_keys(Keys.RETURN)
 
-    def test_search_S0C(self):
-        """Search without a character."""
-        self.search_("")
+    # def test_search_S0C(self):
+    #     """Search without a character."""
+    #     self.search_("")
 
-    def test_search_S1C(self):
-        """Search with text have an only character."""
-        self.search_("k")
+    # def test_search_S1C(self):
+    #     """Search with text have an only character."""
+    #     self.search_("k")
 
-    def test_search_SOneorMoreSpace(self):
-        """Search with text have only one or more space character."""
-        self.search_("a simple string")
+    # def test_search_SOneorMoreSpace(self):
+    #     """Search with text have only one or more space character."""
+    #     self.search_("a simple string")
 
-    def test_search_SNoSpace(self):
-        """Search a string and no space character."""
-        self.search_("aSimpleString")
+    # def test_search_SNoSpace(self):
+    #     """Search a string and no space character."""
+    #     self.search_("aSimpleString")
 
-    def test_search_SSpace(self):
-        """Search a string with space character."""
-        self.search_("    ")
+    # def test_search_SSpace(self):
+    #     """Search a string with space character."""
+    #     self.search_("    ")
 
-    def test_search_SUnicode(self):
-        """Search a string with unicode character."""
-        self.search_("con chó mùa thu")
+    # def test_search_SUnicode(self):
+    #     """Search a string with unicode character."""
+    #     self.search_("con chó mùa thu")
 
-    def test_search_SLink(self):
-        """Search a link."""
-        self.search_("https://www.google.com/")
+    # def test_search_SLink(self):
+    #     """Search a link."""
+    #     self.search_("https://www.google.com/")
     
-    def test_search_Shieroglyphics(self):
-        """Search a link."""
-        self.search_("ベトナム人") 
+    # def test_search_Shieroglyphics(self):
+    #     """Search a link."""
+    #     self.search_("ベトナム人")
+
+    def test_CMFullComplete(self):
+        """Create a message with at least one participants and message not empty"""
+        self.login_()
+        self.driver.find_element_by_class_name("jsx-2971791619.main").click()
+        self.driver.find_element_by_class_name("jsx-756775732.view-all-btn").click()
+        self.driver.find_element_by_class_name("callToAction").click()
+        participantBox = self.driver.find_element_by_id("ctrl_recipients")
+        participantBox.send_keys("hi")
+        time.sleep(1)
+        participantBox.send_keys(Keys.RETURN)
+        titleBox = self.driver.find_element_by_id("ctrl_title")
+        titleBox.send_keys("hello")
+        divMsg = self.driver.find_elements_by_class_name("redactor_box")
+        msg = self.driver.find_element_by_tag_name("iframe")
+        # msg[0].send_keys("hihi")
+        # webdriver.ActionChains(msg[0]).send_keys('this is a test').perform()
+        # webdriver.ActionChains(msg[1]).send_keys('this is a test').perform()
+        time.sleep(10)
+        print(msg.find_elements_by_tag_name("p"))
+
+        # divMsg.find_element_by_tag_name("body").send_keys("ghehgehe")
+        time.sleep(10)
+
+
+    
 
     def tearDown(self):
         self.driver.close()

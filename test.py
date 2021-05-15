@@ -8,7 +8,7 @@ class SeleniumDriver(object):
     def __init__(
         self,
         # chromedriver path
-        driver_path='',
+        driver_path='./chrome_driver/chromedriver_win32/chromedriver.exe',
         # pickle file path to store cookies
         cookies_file_path='./Cookies',
         # list of websites to reuse cookies with
