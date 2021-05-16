@@ -181,21 +181,74 @@ class TinhTeAutomationTesting(unittest.TestCase):
     #     """Create a message with a not valid recipient."""
     #     self.login_()
     #     self.makeMessage(["ankun"],"", "Lai la tui day")
-    
-    def test_RV_1(self):
+    def makeReview(self, title, price, description, like, dislike, advice, isSendImg = True):
         self.driver.find_element_by_class_name("jsx-817685855.cta").click()
         txtBox = self.driver.find_elements_by_class_name("review-editor-text-input")
-        txtBox[0].send_keys("iPhone 12 Pro Max")
-        txtBox[1].send_keys("19 triệu VND")
-        txtBox[2].send_keys("To, 1 pin, màn hình rộng, RAM 8GB")
-        txtBox[3].send_keys("Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp")
-        txtBox[4].send_keys("Màn hình hơi nhỏ")
-        txtBox[5].send_keys("Nên mua")
-        imgSend = self.driver.find_element_by_class_name("jsx-2282145060.attachment.cover")
-        imgSend.send_keys(os.getcwd()+"\image.png")
-        print(os.getcwd()+"\image.png")
+        txtBox[0].send_keys(title)
+        txtBox[1].send_keys(price)
+        txtBox[2].send_keys(description)
+        txtBox[3].send_keys(like)
+        txtBox[4].send_keys(dislike)
+        txtBox[5].send_keys(advice)
+        section = self.driver.find_elements_by_class_name("jsx-2282145060.section-container")
+        img = section[3].find_element_by_tag_name("input")
+        self.driver.execute_script("arguments[0].setAttribute('style','display:')", img)
+        if isSendImg:
+            img.send_keys(os.getcwd() + ("\image.png" if system() == 'Windows' else "/image.png"))
+            time.sleep(5)
+    def test_RVFullComplete(self):
+        """Create a review full infomation"""
+        self.login_()
+        self.makeReview("iPhone 12 Pro Max", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+            "Màn hình hơi nhỏ", "Nên mua")
+        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+        # time.sleep(10)
+        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
 
-        time.sleep(20)
+    def test_RVWithoutName(self):
+        """Create a review without a product name"""
+        self.login_()
+        self.makeReview("", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+            "Màn hình hơi nhỏ", "Nên mua")
+        # time.sleep(10)
+        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-2282145060.error")) == 1)
+
+    def test_RVWithoutImage(self):
+        """Create a review without a product name"""
+        self.login_()
+        self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+            "Màn hình hơi nhỏ", "Nên mua", False)
+        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+        # time.sleep(10)
+        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
+    
+    def test_RVEdit(self):
+        """Edit a review exist"""
+        self.login_()
+        self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+            "Màn hình hơi nhỏ", "Nên mua")
+        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+        time.sleep(5)
+        self.driver.find_element_by_class_name("jsx-2176532799.moderator-action__button").click()
+        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+        # time.sleep(10)
+        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
+
+    def test_RVDelete(self):
+        """Delete a review exist"""
+        self.login_()
+        self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+            "Màn hình hơi nhỏ", "Nên mua")
+        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+        time.sleep(5)
+        self.driver.find_elements_by_class_name("jsx-1378818985.moderator-action__button")[3].click()
+        # time.sleep(10)
+        self.assertTrue(len(self.driver.find_elements_by_id("ctrl_reason")) == 1)
 
     def tearDown(self):
         self.driver.close()
