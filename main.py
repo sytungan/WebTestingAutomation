@@ -196,60 +196,121 @@ class TinhTeAutomationTesting(unittest.TestCase):
         if isSendImg:
             img.send_keys(os.getcwd() + ("\image.png" if system() == 'Windows' else "/image.png"))
             time.sleep(5)
-    def test_RVFullComplete(self):
-        """Create a review full infomation"""
-        self.login_()
-        self.makeReview("iPhone 12 Pro Max", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
-            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
-            "Màn hình hơi nhỏ", "Nên mua")
-        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
-        # time.sleep(10)
-        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
+    # def test_RVFullComplete(self):
+    #     """Create a review full infomation"""
+    #     self.login_()
+    #     self.makeReview("iPhone 12 Pro Max", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+    #         "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+    #         "Màn hình hơi nhỏ", "Nên mua")
+    #     self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+    #     # time.sleep(10)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
 
-    def test_RVWithoutName(self):
-        """Create a review without a product name"""
-        self.login_()
-        self.makeReview("", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
-            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
-            "Màn hình hơi nhỏ", "Nên mua")
-        # time.sleep(10)
-        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-2282145060.error")) == 1)
+    # def test_RVWithoutName(self):
+    #     """Create a review without a product name"""
+    #     self.login_()
+    #     self.makeReview("", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+    #         "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+    #         "Màn hình hơi nhỏ", "Nên mua")
+    #     # time.sleep(10)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-2282145060.error")) == 1)
 
-    def test_RVWithoutImage(self):
-        """Create a review without a product name"""
-        self.login_()
-        self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
-            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
-            "Màn hình hơi nhỏ", "Nên mua", False)
-        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
-        # time.sleep(10)
-        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
+    # def test_RVWithoutImage(self):
+    #     """Create a review without a product name"""
+    #     self.login_()
+    #     self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+    #         "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+    #         "Màn hình hơi nhỏ", "Nên mua", False)
+    #     self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+    #     # time.sleep(10)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
     
-    def test_RVEdit(self):
-        """Edit a review exist"""
-        self.login_()
-        self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
-            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
-            "Màn hình hơi nhỏ", "Nên mua")
-        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
-        time.sleep(5)
-        self.driver.find_element_by_class_name("jsx-2176532799.moderator-action__button").click()
-        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
-        # time.sleep(10)
-        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
+    # def test_RVEdit(self):
+    #     """Edit a review exist"""
+    #     self.login_()
+    #     self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+    #         "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+    #         "Màn hình hơi nhỏ", "Nên mua")
+    #     self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+    #     time.sleep(5)
+    #     self.driver.find_element_by_class_name("jsx-2176532799.moderator-action__button").click()
+    #     self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+    #     # time.sleep(10)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
 
-    def test_RVDelete(self):
-        """Delete a review exist"""
-        self.login_()
-        self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
-            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
-            "Màn hình hơi nhỏ", "Nên mua")
-        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
-        time.sleep(5)
-        self.driver.find_elements_by_class_name("jsx-1378818985.moderator-action__button")[3].click()
-        # time.sleep(10)
-        self.assertTrue(len(self.driver.find_elements_by_id("ctrl_reason")) == 1)
+    # def test_RVDelete(self):
+    #     """Delete a review exist"""
+    #     self.login_()
+    #     self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+    #         "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+    #         "Màn hình hơi nhỏ", "Nên mua")
+    #     self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+    #     time.sleep(5)
+    #     self.driver.find_elements_by_class_name("jsx-1378818985.moderator-action__button")[3].click()
+    #     # time.sleep(10)
+    #     self.assertTrue(len(self.driver.find_elements_by_id("ctrl_reason")) == 1)
+    def commentReview(self, content):
+        self.driver.get("https://tinhte.vn/thread/review-iphone-12-pro-max.3327910/")
+        txtBox = self.driver.find_elements_by_class_name("post-reply-input")[1]
+        txtBox.click()
+        txtBox.send_keys(content)
 
+    # def test_CoRP1(self):
+    #     """Comment on review as a guest"""
+    #     self.login_()
+
+    # def test_CoRP2(self):
+    #     """Comment blank"""
+    #     self.commentReview("Review của bạn thật là xịn")
+    #     if len(self.driver.find_elements_by_class_name("jsx-3593820457.post-reply-submit.active")) != 0:
+    #         # self.driver.find_element_by_class_name("jsx-3593820457.post-reply-submit.active").click()
+    #         self.assertTrue(False)
+    #     else:
+    #         self.assertTrue(True)
+
+    # def test_CoRP3(self):
+    #     """Comment with whitespace only"""
+    #     self.commentReview("Review của bạn thật là xịn")
+    #     if len(self.driver.find_elements_by_class_name("jsx-3593820457.post-reply-submit.active")) != 0:
+    #         self.driver.find_element_by_class_name("jsx-3593820457.post-reply-submit.active").click()
+    #         if len(self.driver.find_elements_by_class_name("jsx-3593820457.error")) != 0:
+    #             self.assertTrue(False)
+    #         else:
+    #             self.assertTrue(True)
+    #     else:
+    #         self.assertTrue(False)
+
+    # def test_CoRP4(self):
+    #     """Comment with hyperlink"""
+    #     self.commentReview("https://stackoverflow.com/questions/36614118/python-selenium-sending-keys-into-textarea")
+    #     if len(self.driver.find_elements_by_class_name("jsx-3593820457.post-reply-submit.active")) != 0:
+    #         self.driver.find_element_by_class_name("jsx-3593820457.post-reply-submit.active").click()
+    #         self.assertTrue(False)
+    #     else:
+    #         self.assertTrue(True)        
+
+    # def test_CoRP5(self):
+    #     """Comment with hieroglyphics character"""
+    #     self.commentReview("ベトナム人")
+    #     if len(self.driver.find_elements_by_class_name("jsx-3593820457.post-reply-submit.active")) != 0:
+    #         self.driver.find_element_by_class_name("jsx-3593820457.post-reply-submit.active").click()
+    #         self.assertTrue(False)
+    #     else:
+    #         self.assertTrue(True)     
+
+    # def test_CoRP6(self):
+    #     """Delete a comment"""
+    #     self.login_()
+    #     self.commentReview("hehehe")
+    #     if len(self.driver.find_elements_by_class_name("jsx-3593820457.post-reply-submit.active")) != 0:
+    #         self.driver.find_element_by_class_name("jsx-3593820457.post-reply-submit.active").click()
+    #         buttons = self.driver.find_elements_by_class_name("jsx-2274533257.thread-action")
+    #         buttons[2].click()
+    #         self.driver.find_element_by_class_name("jsx-3932553558.button.active").click()
+    #         self.assertTrue(True)
+    #     else:
+    #         self.assertTrue(False)     
+            
     def tearDown(self):
         self.driver.close()
 
