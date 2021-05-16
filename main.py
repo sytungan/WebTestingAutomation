@@ -196,59 +196,386 @@ class TinhTeAutomationTesting(unittest.TestCase):
         if isSendImg:
             img.send_keys(os.getcwd() + ("\image.png" if system() == 'Windows' else "/image.png"))
             time.sleep(5)
-    def test_RVFullComplete(self):
-        """Create a review full infomation"""
-        self.login_()
-        self.makeReview("iPhone 12 Pro Max", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
-            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
-            "Màn hình hơi nhỏ", "Nên mua")
-        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
-        # time.sleep(10)
-        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
+    # def test_RVFullComplete(self):
+    #     """Create a review full infomation"""
+    #     self.login_()
+    #     self.makeReview("iPhone 12 Pro Max", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+    #         "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+    #         "Màn hình hơi nhỏ", "Nên mua")
+    #     self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+    #     # time.sleep(10)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
 
-    def test_RVWithoutName(self):
-        """Create a review without a product name"""
-        self.login_()
-        self.makeReview("", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
-            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
-            "Màn hình hơi nhỏ", "Nên mua")
-        # time.sleep(10)
-        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-2282145060.error")) == 1)
+    # def test_RVWithoutName(self):
+    #     """Create a review without a product name"""
+    #     self.login_()
+    #     self.makeReview("", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+    #         "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+    #         "Màn hình hơi nhỏ", "Nên mua")
+    #     # time.sleep(10)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-2282145060.error")) == 1)
 
-    def test_RVWithoutImage(self):
-        """Create a review without a product name"""
-        self.login_()
-        self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
-            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
-            "Màn hình hơi nhỏ", "Nên mua", False)
-        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
-        # time.sleep(10)
-        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
+    # def test_RVWithoutImage(self):
+    #     """Create a review without a product name"""
+    #     self.login_()
+    #     self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+    #         "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+    #         "Màn hình hơi nhỏ", "Nên mua", False)
+    #     self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+    #     # time.sleep(10)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
     
-    def test_RVEdit(self):
-        """Edit a review exist"""
-        self.login_()
-        self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
-            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
-            "Màn hình hơi nhỏ", "Nên mua")
-        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
-        time.sleep(5)
-        self.driver.find_element_by_class_name("jsx-2176532799.moderator-action__button").click()
-        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
-        # time.sleep(10)
-        self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
+    # def test_RVEdit(self):
+    #     """Edit a review exist"""
+    #     self.login_()
+    #     self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+    #         "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+    #         "Màn hình hơi nhỏ", "Nên mua")
+    #     self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+    #     time.sleep(5)
+    #     self.driver.find_element_by_class_name("jsx-2176532799.moderator-action__button").click()
+    #     self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+    #     # time.sleep(10)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("jsx-1378818985.thread-is-draft")) == 1)
 
-    def test_RVDelete(self):
-        """Delete a review exist"""
-        self.login_()
-        self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
-            "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
-            "Màn hình hơi nhỏ", "Nên mua")
-        self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
-        time.sleep(5)
-        self.driver.find_elements_by_class_name("jsx-1378818985.moderator-action__button")[3].click()
-        # time.sleep(10)
-        self.assertTrue(len(self.driver.find_elements_by_id("ctrl_reason")) == 1)
+    # def test_RVDelete(self):
+    #     """Delete a review exist"""
+    #     self.login_()
+    #     self.makeReview("IP12", "19 triệu VND", "To, 1 pin, màn hình rộng, RAM 8GB", 
+    #         "Mình thích thiết kế của nó, đẹp, gọn, màn hình rất sáng, camera chụp rất đẹp", 
+    #         "Màn hình hơi nhỏ", "Nên mua")
+    #     self.driver.find_element_by_class_name("jsx-2282145060.toolbar-save-button").click()
+    #     time.sleep(5)
+    #     self.driver.find_elements_by_class_name("jsx-1378818985.moderator-action__button")[3].click()
+    #     # time.sleep(10)
+    #     self.assertTrue(len(self.driver.find_elements_by_id("ctrl_reason")) == 1)
+    def commentReview(self, content):
+        self.driver.get("https://tinhte.vn/thread/review-iphone-12-pro-max.3327910/")
+        txtBox = self.driver.find_elements_by_class_name("post-reply-input")[1]
+        txtBox.click()
+        txtBox.send_keys(content)
+
+    # def test_CoRP1(self):
+    #     """Comment on review as a guest"""
+    #     self.login_()
+
+    # def test_CoRP2(self):
+    #     """Comment blank"""
+    #     self.commentReview("Review của bạn thật là xịn")
+    #     if len(self.driver.find_elements_by_class_name("jsx-3593820457.post-reply-submit.active")) != 0:
+    #         # self.driver.find_element_by_class_name("jsx-3593820457.post-reply-submit.active").click()
+    #         self.assertTrue(False)
+    #     else:
+    #         self.assertTrue(True)
+
+    # def test_CoRP3(self):
+    #     """Comment with whitespace only"""
+    #     self.commentReview("Review của bạn thật là xịn")
+    #     if len(self.driver.find_elements_by_class_name("jsx-3593820457.post-reply-submit.active")) != 0:
+    #         self.driver.find_element_by_class_name("jsx-3593820457.post-reply-submit.active").click()
+    #         if len(self.driver.find_elements_by_class_name("jsx-3593820457.error")) != 0:
+    #             self.assertTrue(False)
+    #         else:
+    #             self.assertTrue(True)
+    #     else:
+    #         self.assertTrue(False)
+
+    # def test_CoRP4(self):
+    #     """Comment with hyperlink"""
+    #     self.commentReview("https://stackoverflow.com/questions/36614118/python-selenium-sending-keys-into-textarea")
+    #     if len(self.driver.find_elements_by_class_name("jsx-3593820457.post-reply-submit.active")) != 0:
+    #         self.driver.find_element_by_class_name("jsx-3593820457.post-reply-submit.active").click()
+    #         self.assertTrue(False)
+    #     else:
+    #         self.assertTrue(True)        
+
+    # def test_CoRP5(self):
+    #     """Comment with hieroglyphics character"""
+    #     self.commentReview("ベトナム人")
+    #     if len(self.driver.find_elements_by_class_name("jsx-3593820457.post-reply-submit.active")) != 0:
+    #         self.driver.find_element_by_class_name("jsx-3593820457.post-reply-submit.active").click()
+    #         self.assertTrue(False)
+    #     else:
+    #         self.assertTrue(True)     
+
+    # def test_CoRP6(self):
+    #     """Delete a comment"""
+    #     self.login_()
+    #     self.commentReview("hehehe")
+    #     if len(self.driver.find_elements_by_class_name("jsx-3593820457.post-reply-submit.active")) != 0:
+    #         self.driver.find_element_by_class_name("jsx-3593820457.post-reply-submit.active").click()
+    #         buttons = self.driver.find_elements_by_class_name("jsx-2274533257.thread-action")
+    #         buttons[2].click()
+    #         self.driver.find_element_by_class_name("jsx-3932553558.button.active").click()
+    #         self.assertTrue(True)
+    #     else:
+    #         self.assertTrue(False)     
+
+    def makePost(self,driver,paragraph):
+        iframe = driver.find_element_by_tag_name("iframe")
+        driver.switch_to.frame(iframe)
+        pTag = driver.find_element_by_tag_name("p")
+        driver.execute_script("arguments[0].textContent = arguments[1];", pTag, paragraph)
+        driver.switch_to.default_content()
+        textfield = driver.find_element_by_id("ctrl_location")
+        textfield.send_keys(Keys.RETURN)
+
+    def fillPassText(self,driver,text,locator):
+        textfield = driver.find_element_by_id(locator)
+        textfield.clear()
+        textfield.send_keys(text)
+
+    def fillText(self,driver,text,locator):
+        textfield = driver.find_element_by_id(locator)
+        textfield.clear()
+        textfield.send_keys(text)
+        textfield.send_keys(Keys.RETURN)
+        time.sleep(1)
+
+
+    # def test_CA(self):
+    #     """ Change avatar """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.driver.find_element_by_class_name("img.m").click()
+    #     time.sleep(2)
+    #     s = self.driver.find_element_by_class_name("labelText")
+    #     input_text= s.find_element_by_tag_name("input")
+    #     input_text.send_keys(os.getcwd() + "\\image.jpg")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+    
+    # def test_CARIT(self):
+    #     """ Change avatar with wrong image type """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.driver.find_element_by_class_name("img.m").click()
+    #     time.sleep(1)
+    #     s = self.driver.find_element_by_class_name("labelText")
+    #     input_text= s.find_element_by_tag_name("input")
+    #     input_text.send_keys(os.getcwd() + "\\CustomProfile.py")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 0)
+    
+    # def test_FPNT(self):
+    #     """ Fill place with no text """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.fillText(self.driver,"","ctrl_location")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+
+    # def test_FPWT(self):
+    #     """ Fill place with text """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.fillText(self.driver,"66/7, Hùng Vương, phường 1, quận 10, TP.HCM","ctrl_location")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+
+    # def test_FPWU(self):
+    #     """ Fill place with unicode """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.fillText(self.driver,"ベトナムの都市","ctrl_location")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+
+    # def test_FPWL(self):
+    #     """ Fill place with numerous char"""
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.fillText(self.driver,"66/7, Hùng Vương, phường 1, quận 10, TP.HCM,MV không phải là một câu chuyện tình yêu mà như một khoảng hoài niệm về tuổi trẻ/ tuổi thơ ngây an nhiên (tiếng tút micro ở đầu và cuối clip như là mở đầu/kết thúc của một đoạn băng tư liệu ko liên quan gì đến accident).","ctrl_location")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 0)
+
+    # def test_FJT(self):
+    #     """ Fill job with text """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.fillText(self.driver,"Kỹ sư","ctrl_occupation")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+
+    # def test_FJNT(self):
+    #     """ Fill job with no text """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.fillText(self.driver,"","ctrl_occupation")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+
+    # def test_FP(self):
+    #     """Fill phone number"""
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.fillText(self.driver,"0919891230","ctrl_custom_field_citizenPhoneNumber")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+
+
+    # def test_FPE(self):
+    #     """Fill phone number with Empty number """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.fillText(self.driver,"","ctrl_custom_field_citizenPhoneNumber")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+
+    # def test_FPS(self):
+    #     """ Fill string in phone number """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.fillText(self.driver,"Đây là 1 chuỗi","ctrl_custom_field_citizenPhoneNumber")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 0)
+
+    # def test_FIU(self):
+    #     """ Fill user's information """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.makePost(self.driver,"Tôi là Ankunkun")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+
+    # def test_FIUC(self):
+    #     """ Fill user's information with unicode """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.makePost(self.driver,"ベトナム人")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+
+    # def test_FIUS(self):
+    #     """ Fill user's information with special character """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.makePost(self.driver,"@#$%!")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+
+    # def test_FIUI(self):
+    #     """ Fill user's information with icon """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/personal-details")
+    #     self.makePost(self.driver,"@@,:>,:)")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
+
+
+    # def test_FA(self):
+    #     """ Fill following account with text """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/following")
+    #     self.fillText(self.driver,"Ankunkun","ctrl_users")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("username.StatusTooltip")) == 1)
+
+    # def test_FAE(self):
+    #     """ Fill following account with empty text """
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/following")
+    #     time.sleep(1)
+    #     self.fillText(self.driver,"","ctrl_users")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("errorOverlay")) == 1)
+
+    # def test_FAU(self):
+    #     """Fill following account with unicode"""
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/following")
+    #     time.sleep(1)
+    #     self.fillText(self.driver,"うずまきナルト","ctrl_users")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("errorOverlay")) == 1)
+
+    # def test_FAL(self):
+    #     """Fill following account with link"""
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/following")
+    #     time.sleep(1)
+    #     self.fillText(self.driver,"https://tinhte.vn/members/ankunkun.2693711/","ctrl_users")
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("errorOverlay")) == 1)
+
+
+    # def test_CP(self):
+    #     """Change password"""
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/security")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password_original")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password_confirm")
+    #     confirm = self.driver.find_element_by_id("ctrl_password_confirm")
+    #     confirm.send_keys(Keys.RETURN)
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("errorOverlay")) == 0)
+
+    # def test_CP8(self):
+    #     """Change password with less than 8 character"""
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/security")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password_original")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password_confirm")
+    #     confirm = self.driver.find_element_by_id("ctrl_password_confirm")
+    #     confirm.send_keys(Keys.RETURN)
+
+        # time.sleep(1)
+        # self.assertTrue(len(self.driver.find_elements_by_class_name("errorOverlay")) == 0)
+
+    # def test_CPES(self):
+    #     """Change password with empty string"""
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/security")
+    #     self.fillPassText(self.driver,"","ctrl_password_original")
+    #     self.fillPassText(self.driver,"","ctrl_password")
+    #     self.fillPassText(self.driver,"","ctrl_password_confirm")
+    #     confirm = self.driver.find_element_by_id("ctrl_password_confirm")
+    #     confirm.send_keys(Keys.RETURN)
+        
+    #     time.sleep(2)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("close.OverlayCloser"))==1)
+
+    # def test_CPOP(self):
+    #     """Change password with old password"""
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/security")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password_original")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password_confirm")
+    #     confirm = self.driver.find_element_by_id("ctrl_password_confirm")
+    #     confirm.send_keys(Keys.RETURN)
+
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("errorOverlay")) == 0)
+
+    # def test_CPWU(self):
+    #     """Change password with unicode password"""
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/security")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password_original")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password")
+    #     self.fillPassText(self.driver,"うずまきナルト","ctrl_password_confirm")
+    #     confirm = self.driver.find_element_by_id("ctrl_password_confirm")
+    #     confirm.send_keys(Keys.RETURN)
+
+    #     time.sleep(1)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("errorOverlay")) == 0)
+
+    # def test_CPW(self):
+    #     """Change password with wrong confirm password"""
+    #     self.login_()
+    #     self.driver.get("https://tinhte.vn/account/security")
+    #     self.fillPassText(self.driver,"","ctrl_password_original")
+    #     self.fillPassText(self.driver,"","ctrl_password")
+    #     self.fillPassText(self.driver,"","ctrl_password_confirm")
+    #     confirm = self.driver.find_element_by_id("ctrl_password_confirm")
+    #     confirm.send_keys(Keys.RETURN)
+        
+    #     time.sleep(2)
+    #     self.assertTrue(len(self.driver.find_elements_by_class_name("close.OverlayCloser"))==1)
+
 
     def tearDown(self):
         self.driver.close()
