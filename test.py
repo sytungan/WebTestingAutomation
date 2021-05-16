@@ -1,9 +1,9 @@
-from platform import platform
-import selenium
-from platform import system 
-import time
+# selenium-driver.py
 import pickle
 from selenium import webdriver
+import time
+
+
 class SeleniumDriver(object):
     def __init__(
         self,
@@ -54,7 +54,9 @@ class SeleniumDriver(object):
         self.save_cookies()
         self.close_all()
 
-def tinhte_login(driver):
+
+def tinhte_login():
+    driver.get("https://tinhte.vn")
     if len(driver.find_elements_by_class_name("jsx-1783754700.blue-switch.header-mode")) == 1:
         return True
     driver.find_element_by_partial_link_text("Đăng nhập").click()
@@ -63,4 +65,21 @@ def tinhte_login(driver):
     driver.find_elements_by_class_name("button.primary")[3].click()
     return False
 
-driver.quit()
+
+if __name__ == '__main__':
+    """
+    Run  - 1
+    First time authentication and save cookies
+
+    Run  - 2
+    Reuse cookies and use logged-in session
+    """
+    selenium_object = SeleniumDriver()
+    driver = selenium_object.driver
+
+    if tinhte_login():
+        print("Already logged in")
+    else:
+        print("Not logged in. Login")
+
+    selenium_object.quit()
