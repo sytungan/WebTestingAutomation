@@ -341,7 +341,7 @@ class TinhTeAutomationTesting(unittest.TestCase):
     #     time.sleep(2)
     #     s = self.driver.find_element_by_class_name("labelText")
     #     input_text= s.find_element_by_tag_name("input")
-    #     input_text.send_keys(os.getcwd() + ("\image.png" if system() == 'Windows' else "/image.png"))
+    #     input_text.send_keys(os.getcwd() + ("\image.jpg" if system() == 'Windows' else "/image.jpg"))
     #     time.sleep(5)
     #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 1)
     
@@ -353,7 +353,7 @@ class TinhTeAutomationTesting(unittest.TestCase):
     #     time.sleep(1)
     #     s = self.driver.find_element_by_class_name("labelText")
     #     input_text= s.find_element_by_tag_name("input")
-    #     input_text.send_keys(os.getcwd() + ("\image.png" if system() == 'Windows' else "/image.png"))
+    #     input_text.send_keys(os.getcwd() + ("\image.jpg" if system() == 'Windows' else "/image.jpg"))
     #     time.sleep(1)
     #     self.assertTrue(len(self.driver.find_elements_by_class_name("content.baseHtml")) == 0)
     
