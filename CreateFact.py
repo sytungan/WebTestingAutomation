@@ -144,7 +144,7 @@ def CST4():
     time.sleep(10)
 
 def CST5():
-    #Switch to Share mode, add link then switch to Fact mode
+    # create share and add link then switch to Fact mode
     createFact()
     shareBtn = driver.find_elements_by_class_name("switch-toggle")
     shareBtn[0].click()
@@ -155,7 +155,7 @@ def CST5():
     time.sleep(10)
 
 def CST6():
-    #Switch to Share mode, change theme then switch to Fact mode
+    # create share and click change theme button then switch to Fact mode
     createFact()
     shareBtn = driver.find_elements_by_class_name("switch-toggle")
     shareBtn[0].click()
@@ -200,6 +200,7 @@ def CST8():
 
 
 def CST9():
+    # create share and test long post feature
     createShare()
     driver.find_elements_by_class_name("category-selector-switch")[0].click()
     time.sleep(10)
@@ -212,6 +213,7 @@ def CST9():
     time.sleep(10)
 
 def CST10():
+    # create share andtest save function in long post feature
     createShare()
     driver.find_elements_by_class_name("category-selector-switch")[0].click()
     time.sleep(10)
@@ -224,6 +226,7 @@ def CST10():
     time.sleep(10)
 
 def CST11():
+    # create share and test and test auto save function in long post feature
     createShare()
     driver.find_elements_by_class_name("category-selector-switch")[0].click()
     time.sleep(10)
@@ -235,5 +238,5 @@ def CST11():
 
     
 signUp()
-#CFWMT()
+CST8()
 driver.quit()

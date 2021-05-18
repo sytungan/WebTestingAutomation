@@ -575,6 +575,257 @@ class TinhTeAutomationTesting(unittest.TestCase):
         
     #     time.sleep(2)
     #     self.assertTrue(len(self.driver.find_elements_by_class_name("close.OverlayCloser"))==1)
+    
+    
+    
+    
+    def createFact(self):
+        factBtn = self.driver.find_elements_by_class_name("create-fact")
+        factBtn[0].click()
+        time.sleep(2)
+
+    def createShare(self):
+        self.createFact()
+        shareBtn = driver.find_elements_by_class_name("switch-toggle")
+        shareBtn[0].click()
+        time.sleep(2)
+
+    def test_CFWC(self):
+        # create fact test 1
+        # create fact without character
+        self.login_()
+        self.createFact()
+        postBtn = self.driver.find_elements_by_class_name("publish-btn")
+        postBtn[0].click()
+        time.sleep(3)
+
+    def test_CFLT(self):
+        # create fact test 2
+        #create fact with less than 10 charater
+        self.login_()
+        self.createFact()
+        content = self.driver.find_elements_by_class_name("createTinhteFact")
+        content[0].send_keys("testing")
+        time.sleep(3)
+        postBtn = self.driver.find_elements_by_class_name("publish-btn")
+        postBtn[0].click()
+        time.sleep(3)
+
+    def test_CFWFP(self):
+        # create fact test 3
+        # create fact with the wrong format picture
+        self.login_()
+        self.createFact()
+        picBtn = self.driver.find_elements_by_class_name("image-picker")
+        inputFile = picBtn[0].find_elements_by_tag_name("input")
+        inputFile[0].send_keys(os.getcwd() + "\\image.txt")
+        time.sleep(10)
+
+
+    def test_CFCFWT(self):
+        # create fact test 4
+        # create fact with the correct format but without text
+        self.login_()
+        self.createFact()
+        picBtn = self.driver.find_elements_by_class_name("image-picker")
+        inputFile = picBtn[0].find_elements_by_tag_name("input")
+        inputFile[0].send_keys(os.getcwd() + "\\image.jpg")
+        time.sleep(2)
+        postBtn = self.driver.find_elements_by_class_name("publish-btn")
+        postBtn[0].click()
+        time.sleep(3)
+
+    def test_CFCFLT(self):
+        # create fact test 5
+        #create fact with the correct format but less than 10 character
+        self.login_()
+        self.createFact()
+        picBtn = self.driver.find_elements_by_class_name("image-picker")
+        inputFile = picBtn[0].find_elements_by_tag_name("input")
+        inputFile[0].send_keys(os.getcwd() + "\\image.jpg")
+        content = self.driver.find_elements_by_class_name("createTinhteFact")
+        content[0].send_keys("testing")
+        time.sleep(2)
+        postBtn = self.driver.find_elements_by_class_name("publish-btn")
+        postBtn[0].click()
+        time.sleep(3)
+
+
+    def test_CFMT(self):
+        # create fact test 6
+        # create fact with more than 10 charater
+        self.login_()
+        self.createFact()
+        content = self.driver.find_elements_by_class_name("createTinhteFact")
+        content[0].send_keys("Software testing")
+        time.sleep(2)
+        postBtn = self.driver.find_elements_by_class_name("publish-btn")
+        postBtn[0].click()
+        time.sleep(3)
+
+    def test_CFMTP(self):
+        # create fact test 7
+        # create fact with more than 10 charater with picture
+        self.login_()
+        self.createFact()
+        content = self.driver.find_elements_by_class_name("createTinhteFact")
+        picBtn = self.driver.find_elements_by_class_name("image-picker")
+        inputFile = picBtn[0].find_elements_by_tag_name("input")
+        inputFile[0].send_keys(os.getcwd() + "\\image.jpg")
+        content[0].send_keys("Software testing")
+        time.sleep(2)
+        postBtn = self.driver.find_elements_by_class_name("publish-btn")
+        postBtn[0].click()
+        time.sleep(5)
+
+    def test_CS(self):
+        # create share test 1
+        # switch to share mode
+        self.login_()
+        self.createShare()
+
+
+    def test_CSWT(self):
+        # create share test 2
+        # create share without character
+        self.login_
+        self.createShare()
+        postBtn = self.driver.find_elements_by_class_name("publish-btn")
+        postBtn[0].click()
+        time.sleep(3)
+
+
+    def test_CSLT(self):
+        # create share test 3
+        # create share with less than 10 charater
+        self.login_()
+        self.createShare()
+        content = self.driver.find_elements_by_tag_name("textarea")
+        content[0].send_keys("testing")
+        time.sleep(2)
+        postBtn = self.driver.find_elements_by_class_name("publish-btn")
+        postBtn[0].click()
+        time.sleep(10)
+
+
+    def test_CSMT(self):
+        # create share test 4
+        # create share with more than 10 charater
+        self.login_()
+        self.createShare()
+        content = self.driver.find_elements_by_tag_name("textarea")
+        content[0].send_keys("Software testing")
+        time.sleep(3)
+        postBtn = self.driver.find_elements_by_class_name("publish-btn")
+        postBtn[0].click()
+        time.sleep(10)
+
+
+    def test_CSLSF(self):
+        # create share test 5
+        # create share click add link button then switch to Fact mode
+        self.login_()
+        self.createFact()
+        shareBtn = self.driver.find_elements_by_class_name("switch-toggle")
+        shareBtn[0].click()
+        self.driver.find_elements_by_class_name("thread-background-switch")[0].click()
+        time.sleep(1)
+        shareBtn[0].click()
+        time.sleep(3)
+
+
+    def test_CSTSF(self):
+        # create share test 6
+        # create share and click change theme button then switch to Fact mode
+        self.login_()
+        self.createFact()
+        shareBtn = self.driver.find_elements_by_class_name("switch-toggle")
+        shareBtn[0].click()
+        self.driver.find_elements_by_class_name("thread-background-switch")[1].click()
+        time.sleep(1)
+        s = self.driver.find_elements_by_class_name("thread-background-image")
+        s[0].click()
+        time.sleep(1)
+        shareBtn[0].click()
+        time.sleep(3)
+
+
+    def test_CSWL(self):
+        # create share test 7
+        # Create share with link
+        self.login_()
+        self.createShare()
+        content = self.driver.find_elements_by_tag_name("textarea")
+        content[0].send_keys("Software testing")
+        time.sleep(1)
+        self.driver.find_elements_by_class_name("thread-background-switch")[0].click()
+        time.sleep(1)
+        self.driver.find_elements_by_class_name("link-input")[0].send_keys("https://www.youtube.com/channel/UCVJ6jQF0XOaBVTPCT-en2sw")
+        time.sleep(2)
+        postBtn = self.driver.find_elements_by_class_name("publish-btn")
+        postBtn[0].click()
+        time.sleep(3)
+
+    def test_CSWT(self):
+        # create share test 8
+        # create share with theme
+        self.login_()
+        self.createShare()
+        self.driver.find_elements_by_class_name("thread-background-switch")[1].click()
+        time.sleep(1)
+        s = self.driver.find_elements_by_class_name("thread-background-image")
+        s[0].click()
+        time.sleep(1)
+        content = self.driver.find_elements_by_tag_name("textarea")
+        content[0].send_keys("Software testing")
+        time.sleep(1)
+        postBtn = self.driver.find_elements_by_class_name("publish-btn")
+        postBtn[0].click()
+        time.sleep(3)
+
+
+    def test_CSLP(self):
+        # create share test 9
+        # create share and test long post feature
+        self.login_()
+        self.createShare()
+        self.driver.find_elements_by_class_name("category-selector-switch")[0].click()
+        time.sleep(5)
+        self.driver.find_elements_by_class_name("title-input")[0].send_keys("Ba rọi béo - Thầy giáo ba")
+        time.sleep(1)
+        self.driver.find_elements_by_class_name("ck-content")[0].send_keys("Baroibeo tên thật là Phan Tấn Trung, sinh năm 1989. Anh là rapper thế hệ F1 tự xưng. Baroibeo từng là tuyển thủ Liên Minh Huyền Thoại chuyên nghiệp và hiện tại là 1 streamer nổi tiếng Việt Nam. Hiện nay, kênh Youtube của Thầy Giáo Ba có khoảng nửa triệu người đăng ký còn trang Facebook thì cũng có tới hàng trăm ngàn lượt theo dõi. Phan BaRoiBeo Tấn Trung is a streamer and top laner for Academy SBTC. He is also known as Thầy Giáo Ba. He was previously known as 3RB, Teacher Ba and Ba Gà.")
+        time.sleep(3)
+        postBtn = self.driver.find_elements_by_class_name("save-button")
+        postBtn[0].click()
+        time.sleep(10)
+
+
+    def test_CSLPS(self):
+        # create share test 10
+        # create share and test save function in long post feature
+        self.login_()
+        self.createShare()
+        self.driver.find_elements_by_class_name("category-selector-switch")[0].click()
+        time.sleep(3)
+        self.driver.find_elements_by_class_name("title-input")[0].send_keys("Ba rọi béo - Thầy giáo ba")
+        time.sleep(1)
+        self.driver.find_elements_by_class_name("ck-content")[0].send_keys("Baroibeo tên thật là Phan Tấn Trung, sinh năm 1989. Anh là rapper thế hệ F1 tự xưng. Baroibeo từng là tuyển thủ Liên Minh Huyền Thoại chuyên nghiệp và hiện tại là 1 streamer nổi tiếng Việt Nam. Hiện nay, kênh Youtube của Thầy Giáo Ba có khoảng nửa triệu người đăng ký còn trang Facebook thì cũng có tới hàng trăm ngàn lượt theo dõi. Phan BaRoiBeo Tấn Trung is a streamer and top laner for Academy SBTC. He is also known as Thầy Giáo Ba. He was previously known as 3RB, Teacher Ba and Ba Gà.")
+        time.sleep(2)
+        postBtn = self.driver.find_elements_by_class_name("toolbar-save-button")
+        postBtn[0].click()
+        time.sleep(3)
+
+    def test_CSLPAS(self):
+        # create share test 11
+        # create share and test and test auto save function in long post feature
+        self.login_()
+        self.createShare()
+        self.driver.find_elements_by_class_name("category-selector-switch")[0].click()
+        time.sleep(10)
+        self.driver.find_elements_by_class_name("title-input")[0].send_keys("Ba rọi béo - Thầy giáo ba")
+        time.sleep(1)
+        self.driver.find_elements_by_class_name("ck-content")[0].send_keys("Baroibeo tên thật là Phan Tấn Trung, sinh năm 1989. Anh là rapper thế hệ F1 tự xưng. Baroibeo từng là tuyển thủ Liên Minh Huyền Thoại chuyên nghiệp và hiện tại là 1 streamer nổi tiếng Việt Nam. Hiện nay, kênh Youtube của Thầy Giáo Ba có khoảng nửa triệu người đăng ký còn trang Facebook thì cũng có tới hàng trăm ngàn lượt theo dõi. Phan BaRoiBeo Tấn Trung is a streamer and top laner for Academy SBTC. He is also known as Thầy Giáo Ba. He was previously known as 3RB, Teacher Ba and Ba Gà.")
+        time.sleep(70) #After 1 minute, auto save function will enable
 
 
     def tearDown(self):
