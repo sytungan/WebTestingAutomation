@@ -660,7 +660,7 @@ class TinhTeAutomationTesting(unittest.TestCase):
 
     def createShare(self):
         self.createFact()
-        shareBtn = driver.find_elements_by_class_name("switch-toggle")
+        shareBtn = self.driver.find_elements_by_class_name("switch-toggle")
         shareBtn[0].click()
         time.sleep(2)
 
