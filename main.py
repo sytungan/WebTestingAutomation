@@ -688,7 +688,7 @@ class TinhTeAutomationTesting(unittest.TestCase):
     def test_CSWT(self):
         # create share test 2
         # create share without character
-        self.login_
+        self.login_()
         self.createShare()
         postBtn = self.driver.find_elements_by_class_name("publish-btn")
         postBtn[0].click()
