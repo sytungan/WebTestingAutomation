@@ -5,7 +5,9 @@ from selenium import webdriver
 from platform import system
 import pickle
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 class SeleniumDriver(object):
     def __init__(
         self,
@@ -901,6 +903,431 @@ class TinhTeAutomationTesting(unittest.TestCase):
         self.driver.find_elements_by_class_name("ck-content")[0].send_keys("Baroibeo tên thật là Phan Tấn Trung, sinh năm 1989. Anh là rapper thế hệ F1 tự xưng. Baroibeo từng là tuyển thủ Liên Minh Huyền Thoại chuyên nghiệp và hiện tại là 1 streamer nổi tiếng Việt Nam. Hiện nay, kênh Youtube của Thầy Giáo Ba có khoảng nửa triệu người đăng ký còn trang Facebook thì cũng có tới hàng trăm ngàn lượt theo dõi. Phan BaRoiBeo Tấn Trung is a streamer and top laner for Academy SBTC. He is also known as Thầy Giáo Ba. He was previously known as 3RB, Teacher Ba and Ba Gà.")
         time.sleep(70) #After 1 minute, auto save function will enable
 
+    def test_CoT1(self):
+        self.driver.get("https://tinhte.vn/thread/tai-sao-trai-tao-co-the-de-duoc-10-thang-ma-khong-hu.3328438/")
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-3593820457.thread-login")))
+        except:
+            self.driver.quit()
+        search.click()
+
+    def test_CoT2(self):
+        self.login_()
+        self.driver.get("https://tinhte.vn/thread/tai-sao-trai-tao-co-the-de-duoc-10-thang-ma-khong-hu.3328438/")
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-3593820457.post-reply-submit")))
+        except:
+            self.driver.quit()
+        search.click()
+
+    def test_CoT3(self):
+        self.login_()
+        self.driver.get("https://tinhte.vn/thread/tai-sao-trai-tao-co-the-de-duoc-10-thang-ma-khong-hu.3328438/")
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME,"jsx-3593820457.post-reply-main ")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("textarea")
+        search.send_keys("                                                                      ")
+        search = search.find_element_by_xpath("//button[contains( text( ), 'Đăng')]")
+        search.click()
+
+    def test_CoT4(self):
+        self.login_()
+        self.driver.get("https://tinhte.vn/thread/tai-sao-trai-tao-co-the-de-duoc-10-thang-ma-khong-hu.3328438/")
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME,"jsx-3593820457.post-reply-main ")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("textarea")
+        search.send_keys("https://www.google.com")                                                                      
+        search = search.find_element_by_xpath("//button[contains( text( ), 'Đăng')]")
+        search.click()
+
+    def test_CoT5(self):
+        self.login_()
+        self.driver.get("https://tinhte.vn/thread/tai-sao-trai-tao-co-the-de-duoc-10-thang-ma-khong-hu.3328438/")
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME,"jsx-3593820457.post-reply-main ")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("textarea")
+        search.send_keys("ベトナム人")                                                                      
+        search = search.find_element_by_xpath("//button[contains( text( ), 'Đăng')]")
+        search.click()
+    def CoT5(self):
+        self.login_()
+        self.driver.get("https://tinhte.vn/thread/tai-sao-trai-tao-co-the-de-duoc-10-thang-ma-khong-hu.3328438/")
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME,"jsx-3593820457.post-reply-main ")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("textarea")
+        search.send_keys("ベトナム人")                                                                      
+        search = search.find_element_by_xpath("//button[contains( text( ), 'Đăng')]")
+        search.click()
+    
+    def test_Cot6(self):
+        self.CoT5()
+        time.sleep(2)
+        self.driver.refresh()
+        count = 2
+        breaker = 0
+        while(1):
+            search = self.driver.find_element_by_class_name("jsx-1984507624.thread-comments__container")
+            search = search.find_elements_by_class_name("jsx-1984507624")
+            for each in search:
+                number = each.find_elements_by_tag_name("button")
+                if (len(number)>=5):
+                    breaker += 1
+                    break
+            if breaker == 2:
+                break    
+            time.sleep(2)
+            self.driver.get("https://tinhte.vn/thread/tai-sao-trai-tao-co-the-de-duoc-10-thang-ma-khong-hu.3328438/page-"+str(count))
+            count += 1
+            if (count>10):
+                break
+        number[3].click()
+        self.driver.find_element_by_class_name("jsx-3932553558.button.active").click()
+
+    def test_Cot7(self):
+        self.login_()
+        self.driver.get("https://tinhte.vn/thread/tai-sao-trai-tao-co-the-de-duoc-10-thang-ma-khong-hu.3328438/")
+        count = 2
+        breaker = 0
+        while(1):
+            search = self.driver.find_element_by_class_name("jsx-1984507624.thread-comments__container")
+            search = search.find_elements_by_class_name("jsx-1984507624")
+            for each in search:
+                number = each.find_elements_by_tag_name("button")
+                if (len(number)>=5):
+                    breaker += 1
+                    break
+            if breaker == 2:
+                break    
+            time.sleep(2)
+            self.driver.get("https://tinhte.vn/thread/tai-sao-trai-tao-co-the-de-duoc-10-thang-ma-khong-hu.3328438/page-"+str(count))
+            count += 1
+            if (count>10):
+                break
+        number[3].click()
+        self.driver.find_element_by_class_name("jsx-3932553558.button.active").click()
+        self.driver.find_element_by_xpath("//button[contains( text( ), 'Sửa')]").click()
+
+
+    def test_Cot10(self):
+        self.login_()
+        self.driver.get("https://tinhte.vn/thread/tai-sao-trai-tao-co-the-de-duoc-10-thang-ma-khong-hu.3328438/")
+        self.driver.find_element_by_class_name("jsx-3529665607.sticker-button").click()
+        time.sleep(2)
+        search = self.driver.find_element_by_class_name("jsx-3529665607.stickers")
+        search.find_elements_by_tag_name("button")[0].click()
+        self.driver.find_element_by_class_name("jsx-3529665607.sticker-button").click()
+        time.sleep(2)
+        search = self.driver.find_element_by_class_name("jsx-3529665607.stickers")
+        search.find_elements_by_tag_name("button")[1].click()
+
+    #Visit a thread by headline as a user
+    def test_VTasUH(self):
+        self.login_()
+        
+        try:
+            search = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("article")
+        search = search.find_element_by_tag_name("h3")
+        search = search.find_element_by_tag_name("a")
+        search.click()
+    # Visit a thread by image as a guest
+    def test_VTasGI(self):
+        try:
+            search = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+
+    # Visit a thread by image as a registered user
+    def test_VTasUI(self):
+        self.login_()
+        try:
+            search = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+
+
+    # Visit author of a thread on home screen
+    def test_VTauthor(self):
+        try:
+            search = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_class_name("jsx-631305314.author")
+        search.click()
+
+    # Visit author of  thread on thread screen
+    def test_Vauthor(self):
+        try:
+            search = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-1378818985.info")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_class_name("jsx-1378818985.author-name")
+        search = search.find_element_by_class_name("jsx-1378818985")
+        search.click()
+
+
+    # Fast travel to a fragment of thread
+    def test_Fasttravel(self):
+        count = 0
+        while(1):
+            try:
+                listSearch= WebDriverWait(self.driver, 2).until(
+                EC.presence_of_all_elements_located((By.CLASS_NAME, "jsx-3078623109.thumb ")))
+            except:
+                self.driver.quit()
+            listSearch[count].click()
+            try:
+                search = WebDriverWait(self.driver, 4).until(
+                EC.presence_of_element_located((By.CLASS_NAME, "jsx-1378818985.content-list")))
+            except:
+                self.driver.back()
+                count += 1
+                continue
+            break
+        search = search.find_element_by_class_name("jsx-1378818985")
+        search.click()
+    # Visit advertisement
+    def test_Vads(self):
+        try:
+            search = WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.ID, "landing")))
+        except:
+            self.driver.quit()
+        search.click()
+
+    # Visit most active user
+    def test_VAuser(self):
+        try:
+            search = WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-2501851499.active-user-list")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_class_name("jsx-984767296.active-user")
+        search.click()
+
+    # Visit popular community
+    def test_VPcom(self):
+        try:
+            search = WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-938776874.main")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_class_name("jsx-938776874.item-container")
+        search = search.find_element_by_class_name("jsx-938776874.item")
+        search = search.find_element_by_tag_name("a")
+        search.click()
+
+    # Bookmark thread as a guest
+    def test_BthreadG(self):
+        try:
+            search = WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-725335046.bookmark-button")))
+        except:
+            self.driver.quit()
+        print(search.text)
+
+    # React love when logged in
+    def test_RLoveU(self):
+        self.login_()
+        try:
+            search = WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-1378818985.thread-like")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_class_name("jsx-1378818985.thread-like__button")
+        search = search.find_element_by_tag_name("svg")
+        search.click()
+
+    # React love as a guest
+    def test_RLoveG(self):
+        try:
+            search = WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-1378818985.thread-like")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_class_name("jsx-1378818985.thread-like__button")
+        search = search.find_element_by_tag_name("svg")
+        search.click()
+
+    # Subcribe to author of thread as a registered user\
+    def test_SubcribeU(self):
+        self.login_()
+        try:
+            search = WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-3973219579.follow-button-container")))
+        except:
+            self.driver.quit()
+        time.sleep(2)
+        search.click()
+
+    # Subcribe to author of thread as a guest
+    def test_SubcribeG(self):
+        try:
+            search = WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-3973219579.follow-button-container")))
+        except:
+            self.driver.quit()
+        search.click()
+
+    # Share thread with no comment
+    def test_ShareU(self):
+        self.login_()
+        try:
+            search = WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-3454747502.fact-share-button")))
+        except:
+            self.driver.quit()
+        search.click()
+        search = search.find_element_by_xpath("//button[contains( text( ), 'Chia sẻ')]")
+        search.click()
+
+    # Share thread with extensive length
+    def test_ShareULC(self):
+        self.login_()
+        try:
+            search = WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-3454747502.fact-share-button")))
+        except:
+            self.driver.quit()
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 2).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "caption-text-input")))
+        except:
+            self.driver.quit()
+        search.clear()
+        search.send_keys("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+        # search = search.find_element_by_xpath("//button[contains( text( ), 'Chia sẻ')]")
+        # search.click()
+
+    # Share thread as guest
+    def test_ShareG(self):
+        
+        try:
+            search = WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-631305314")))
+        except:
+            self.driver.quit()
+        search = search.find_element_by_tag_name("a")
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jsx-3454747502.fact-share-button")))
+        except:
+            self.driver.quit()
+        search.click()
+        try:
+            search = WebDriverWait(self.driver, 2).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "caption-text-input")))
+        except:
+            self.driver.quit()
+        search.clear()
+        search.send_keys("pycon")
+        
+        
+    
     def tearDown(self):
         self.driver.close()
 
